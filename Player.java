@@ -32,6 +32,18 @@ public class Player {
         //return points;
 
     }
+    public Card removeCard(String input) {
+        Card temp = null;
+        for (int i = 0; i < hand.size(); i++) {
+            if (hand.get(i).getValue().equals(input)) {
+                temp = hand.get(i);
+                hand.remove(i);
+                return temp;
+            }
+        }
+        return temp;
+
+    }
     public ArrayList<Card> getHand() {
         return hand;
     }
@@ -83,6 +95,7 @@ class Card {
 class Deck {
     private ArrayList<Card> deck;
     public Deck () {
+        deck = new ArrayList<>();
 
     }
     public void createDeck() {
