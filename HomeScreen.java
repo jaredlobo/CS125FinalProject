@@ -1,6 +1,7 @@
 package jaredjl2.illinois.edu.cardgames;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -13,39 +14,28 @@ public class HomeScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
 
-        Button goFishBtn = (Button) findViewById(R.id.goFishBtn);
-        goFishBtn.setOnClickListener(new View.OnClickListener() {
+        Button rulesButton = (Button) findViewById(R.id.rulesButton);
+        rulesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent startIntent = new Intent(getApplicationContext(), GoFishActivity.class);
-                startActivity(startIntent);
+                String goFishRules = "https://www.bicyclecards.com/how-to-play/go-fish/";
+                Uri webAddress = Uri.parse(goFishRules);
+
+                Intent goToRules = new Intent(Intent.ACTION_VIEW, webAddress);
+
+                if (goToRules.resolveActivity(getPackageManager()) != null) {
+                    startActivity(goToRules);
+                }
             }
         });
 
-        Button oldMaidBtn = (Button) findViewById(R.id.oldMaidBtn);
-        oldMaidBtn.setOnClickListener(new View.OnClickListener() {
+        Button playButton = (Button) findViewById(R.id.playButton);
+        playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent startIntent = new Intent(getApplicationContext(), OldMaidActivity.class);
+                Intent startIntent = new Intent(getApplicationContext(), GameScreen.class);
                 startActivity(startIntent);
-            }
-        });
-
-        Button blackjackBtn = (Button) findViewById(R.id.blackjackBtn);
-        blackjackBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent startIntent = new Intent(getApplicationContext(), OldMaidActivity.class);
-                startActivity(startIntent);
-            }
-        });
-
-        Button pokerBtn = (Button) findViewById(R.id.pokerBtn);
-        pokerBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent startIntent = new Intent(getApplicationContext(), OldMaidActivity.class);
-                startActivity(startIntent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
     }
